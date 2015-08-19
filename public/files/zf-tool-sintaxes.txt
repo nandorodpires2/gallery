@@ -1,0 +1,8 @@
+-- module
+zf create module admin
+
+-- controller
+zf create controller login index-action-included[=1] admin
+
+-- action
+zf create action action-name controller-name 1 -m module-name
