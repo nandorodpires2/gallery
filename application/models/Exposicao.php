@@ -66,8 +66,11 @@ class Model_Exposicao {
     public function get_visualizacoes() {
         
         $modelExposicaoVisualizacao = new Model_DbTable_ExposicaoVisualizacao();        
-        $visualizacoes = $modelExposicaoVisualizacao->getVisualizacoesExposicao($this->exposicao_id);               
-        $this->visualizacoes = $visualizacoes;
+        $visualizacoes = $modelExposicaoVisualizacao->getVisualizacoesExposicao($this->exposicao_id);   
+        
+        $text = $visualizacoes == 1 ? $visualizacoes . ' Visualização' : $visualizacoes . ' Visualizações';
+        
+        $this->visualizacoes = $text;
         return $this->visualizacoes;
     }
     

@@ -9,8 +9,8 @@ defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development'));
 
 // Define slug team path
-defined('SLUG_TEAM_PATH')
-    || define('SLUG_TEAM_PATH', realpath(dirname(__FILE__) . '/../public/views/player/'));
+defined('PUBLIC_PATH')
+    || define('PUBLIC_PATH', realpath(dirname(__FILE__) . '/../public/'));
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(

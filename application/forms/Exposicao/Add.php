@@ -35,11 +35,16 @@ class Form_Exposicao_Add extends Gallery_Form_Form {
         // tipo_exposicao_id
         $tipo_exposicao_id = new Zend_Form_Element_Select("tipo_exposicao_id");
         $tipo_exposicao_id->setLabel("Categoria da Exposição:");
+        $tipo_exposicao_id->setRequired();
         $tipo_exposicao_id->setMultiOptions($this->getTipoExposicao());
         
         //exposicao_capa
         $exposicao_capa = new Zend_Form_Element_File("exposicao_capa");
         $exposicao_capa->setLabel("Selecione a capa:");
+        $exposicao_capa->setDestination(Zend_Registry::get('config')->path->images->exposicao->capa);
+        $exposicao_capa->addValidator('Extension', false, 'jpg,png,gif');
+        $exposicao_capa->addValidator('Size', false, 2097152)->setMaxFileSize(2097152);
+        $exposicao_capa->setRequired();        
                 
         // add elements
         $this->addElement($exposicao_nome);        

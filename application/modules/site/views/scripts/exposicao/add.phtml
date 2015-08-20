@@ -5,7 +5,52 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-7">
         <?php echo $this->form; ?>
+    </div>    
+    <div class="col-md-4 col-md-offset-1">        
+        <div class="row">              
+            <div class="col-md-12">
+                <h4>Pré-visualização</h4>
+                <div class="panel panel-info">
+                    <div class="panel-heading small">Exposição XXX</div>
+                    <div class="panel-body small">
+                        <div class="row">
+                            <div class="col-md-6 text-left"><i class="glyphicon glyphicon-time"></i> <?php echo date('d/m/Y'); ?> </div>
+                            <div class="col-md-6 text-right"><i class="glyphicon glyphicon-pushpin"></i> Categoria</div> <hr />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img width="100%" src="<?php echo $this->baseUrl('views/img/exposicao/capa/capa.jpg'); ?>" class="img img-responsive" />
+                                <hr />
+                            </div>
+                        </div>
+                        <div class="row">                               
+                            <div class="col-md-12">
+                                <i>Descricao</i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12"><hr /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <i class="glyphicon glyphicon-star text-warning"></i>
+                                <i class="glyphicon glyphicon-star text-warning"></i>
+                                <i class="glyphicon glyphicon-star text-warning"></i>
+                                <i class="glyphicon glyphicon-star-empty"></i>
+                                <i class="glyphicon glyphicon-star-empty"></i>                    
+                            </div>
+                            <div class="col-md-6 text-right small">
+                                XX Visualizações
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer text-center">
+                        <a href="#" class="btn btn-success">ABRIR EXPOSIÇÃO</a>
+                    </div>
+                </div>
+            </div> 
+        </div>  
     </div>
 </div>
