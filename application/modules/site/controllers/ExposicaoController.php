@@ -28,6 +28,7 @@ class Site_ExposicaoController extends Gallery_Controller_Action {
         }
         
         $form = new Form_Exposicao_Add();
+        $form->submit->setLabel("Cadastrar Exposição");
         $this->view->form = $form;
         
         if ($this->getRequest()->isPost()) {

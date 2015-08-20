@@ -15,14 +15,20 @@ class Form_Exposicao_Add extends Gallery_Form_Form {
     
     public function init() {
         
+        $this->setAttribs(array(
+            'id' => 'form-exposicao-add'
+        ));
+        
         // exposicao_nome
         $exposicao_nome = new Zend_Form_Element_Text("exposicao_nome");        
         $exposicao_nome->setLabel("Nome da Exposição:");
+        $exposicao_nome->setAttrib('placeholder', 'Digite o nome de sua exposição');
         $exposicao_nome->setRequired();
         
         //exposicao_descricao        
         $exposicao_descricao = new Zend_Form_Element_Textarea("exposicao_descricao");        
         $exposicao_descricao->setLabel("Descrição da Exposição:");
+        $exposicao_descricao->setAttrib('placeholder', 'Conte aos usuários sobre sua exposição');
         $exposicao_descricao->setAttrib('rows', 10);
         $exposicao_descricao->setRequired();
         
@@ -33,6 +39,7 @@ class Form_Exposicao_Add extends Gallery_Form_Form {
         
         //exposicao_capa
         $exposicao_capa = new Zend_Form_Element_File("exposicao_capa");
+        $exposicao_capa->setLabel("Selecione a capa:");
                 
         // add elements
         $this->addElement($exposicao_nome);        

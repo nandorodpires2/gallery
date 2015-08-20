@@ -21,7 +21,7 @@
     <div class="row">         
         <?php foreach ($this->exposicoes as $exposicao) : ?>
         <div class="col-md-4">
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-heading small"><?php echo $exposicao->exposicao_nome; ?></div>
                 <div class="panel-body small">
                     <div class="row">
@@ -77,7 +77,7 @@
                         'controller' => 'exposicao',
                         'action' => 'open',
                         'exposicao' => $exposicao->exposicao_id
-                    ), null, true); ?>" class="btn btn-primary">ABRIR EXPOSIÇÃO</a>
+                    ), null, true); ?>" class="btn btn-success">ABRIR EXPOSIÇÃO</a>
                 </div>
             </div>
         </div>   

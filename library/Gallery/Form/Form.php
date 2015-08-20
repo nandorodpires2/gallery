@@ -24,7 +24,7 @@ class Gallery_Form_Form extends Zend_Form {
         $submit = new Zend_Form_Element_Submit("submit");
         $submit->setLabel("Enviar");
         $submit->setAttribs(array(
-            'class' => 'btn btn-primary'
+            'class' => 'btn btn-primary form-control'
         ));
         
         $this->addElement($submit);

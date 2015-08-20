@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `exposicao` (
   CONSTRAINT `fk_exposicao_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela galeria.exposicao: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela galeria.exposicao: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `exposicao` DISABLE KEYS */;
 INSERT INTO `exposicao` (`exposicao_id`, `tipo_exposicao_id`, `exposicao_nome`, `exposicao_descricao`, `exposicao_capa`, `exposicao_data_criacao`, `exposicao_ativo`, `usuario_id`) VALUES
 	(2, 2, 'Conversíveis Jornal Super', 'Miniaturas de conversíveis da década de 60.', 'capa_galeria_1.jpg', '2015-08-19 14:14:23', 0, 1),
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `exposicao_vizualizacao` (
   CONSTRAINT `fk_exposicao_vizualizacao_exposicao1` FOREIGN KEY (`exposicao_id`, `usuario_id`) REFERENCES `exposicao` (`exposicao_id`, `usuario_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela galeria.exposicao_vizualizacao: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela galeria.exposicao_vizualizacao: ~11 rows (aproximadamente)
 /*!40000 ALTER TABLE `exposicao_vizualizacao` DISABLE KEYS */;
 INSERT INTO `exposicao_vizualizacao` (`exposicao_vizualizacao_id`, `exposicao_vizualizacao_data`, `exposicao_id`, `usuario_id`) VALUES
 	(1, '2015-08-20 14:00:13', 2, 1),
@@ -106,7 +106,13 @@ INSERT INTO `exposicao_vizualizacao` (`exposicao_vizualizacao_id`, `exposicao_vi
 	(8, '2015-08-20 16:32:16', 5, 1),
 	(9, '2015-08-20 16:32:20', 5, 1),
 	(10, '2015-08-20 16:32:23', 5, 1),
-	(11, '2015-08-20 16:32:26', 5, 1);
+	(11, '2015-08-20 16:32:26', 5, 1),
+	(12, '2015-08-20 16:34:58', 5, 1),
+	(13, '2015-08-20 17:03:41', 5, 1),
+	(14, '2015-08-20 17:04:07', 5, 1),
+	(15, '2015-08-20 17:04:35', 5, 1),
+	(16, '2015-08-20 17:13:30', 5, 1),
+	(17, '2015-08-20 17:15:08', 5, 1);
 /*!40000 ALTER TABLE `exposicao_vizualizacao` ENABLE KEYS */;
 
 
@@ -119,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `tipo_exposicao` (
   PRIMARY KEY (`tipo_exposicao_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela galeria.tipo_exposicao: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela galeria.tipo_exposicao: ~6 rows (aproximadamente)
 /*!40000 ALTER TABLE `tipo_exposicao` DISABLE KEYS */;
 INSERT INTO `tipo_exposicao` (`tipo_exposicao_id`, `tipo_exposicao`, `tipo_exposicao_ativo`) VALUES
 	(1, 'Quadros', 1),

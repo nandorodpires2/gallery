@@ -1,12 +1,14 @@
 body {
     padding-top: 60px;
     padding-bottom: 40px;
-    /*
-    background-image: url('../img/monet_3.jpeg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    box-shadow: 10px 10px 5px #888888;
-    */
+}
+
+#content {
+    
+}
+
+dd {
+    margin-bottom: 7px;
 }
 
 .zf-green {
