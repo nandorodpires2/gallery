@@ -41,3 +41,12 @@ div.container a.brand {
     margin-left: 0;
     padding: 8px 20px 12px 40px;
 }
+
+footer a {
+    padding: 0 5px;    
+}
+
+footer a:hover {
+    color: #696969;
+    text-decoration: none;
+}

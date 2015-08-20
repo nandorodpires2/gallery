@@ -2,7 +2,10 @@
     <div class="row">
         <div class="col-md-12 text-right">
             <p>
-                <a class="btn btn-success">
+                <a href="<?php echo $this->url(array(
+                    'controller' => 'exposicao',
+                    'action' => 'add'
+                ), null, true); ?>" class="btn btn-success">
                     <i class="glyphicon glyphicon-plus"></i> <?php echo $this->translate("Crie sua exposição"); ?>
                 </a>
             </p>
@@ -14,40 +17,45 @@
             <hr />
         </div>
     </div>    
-    <div class="row">                
+    <?php if ($this->exposicoes) : ?>
+    <div class="row">         
+        <?php foreach ($this->exposicoes as $exposicao) : ?>
         <div class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel-heading small">Conversíveis</div>
+                <div class="panel-heading small"><?php echo $exposicao->exposicao_nome; ?></div>
                 <div class="panel-body small">
                     <div class="row">
-                        <div class="col-md-4">
-                            <a href="#" title="Fernando Rodrigues">
-                                <img src="<?php echo $this->baseUrl('views/img/eu.jpg'); ?>" class="img img-rounded img-responsive" />
-                            </a>
-                        </div>
-                        <div class="col-md-8">
-                            <p>
-                                <i class="glyphicon glyphicon-time"></i> 19/08/2015 <br />                                                       
-                            </p>
-                            <p>
-                                <i class="glyphicon glyphicon-user"></i> Fernando Rodrigues                             
-                            </p>
-                            <p>
-                                <i class="glyphicon glyphicon-pushpin"></i> Obras de Arte
-                            </p>                        
+                        <div class="col-md-6 text-left"><i class="glyphicon glyphicon-time"></i> <?php echo $exposicao->exposicao_data_criacao; ?> </div>
+                        <div class="col-md-6 text-right"><i class="glyphicon glyphicon-pushpin"></i> <?php echo $exposicao->tipo_exposicao->tipo_exposicao; ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img width="100%" src="<?php echo $this->baseUrl('views/img/' . $exposicao->exposicao_capa); ?>" class="img img-responsive" />
+                            <hr />
                         </div>
                     </div>
+                    <div class="row">                               
+                        <div class="col-md-12">
+                            <i><?php echo $exposicao->exposicao_descricao; ?></i>
+                        </div>
+                    </div>
+                    <!--
                     <div class="row">
                         <div class="col-md-12"><hr /></div>
                     </div>
-                    <div class="row">                               
-                        <div class="col-md-5">
-                            <i>Descricao</i>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a href="#" title="<?php echo $exposicao->usuario->usuario_nome; ?>">
+                                <img src="<?php echo $this->baseUrl('views/img/' . $exposicao->usuario->usuario_avatar); ?>" class="img img-rounded img-responsive" />
+                            </a>
                         </div>
-                        <div class="col-md-7">
-                            <img src="<?php echo $this->baseUrl('views/img/monet.jpg'); ?>" class="img img-responsive" />
+                        <div class="col-md-8">                                         
+                            <p></p>
+                            <p></p>                                 
                         </div>
                     </div>
+                    -->
                     <div class="row">
                         <div class="col-md-12"><hr /></div>
                     </div>
@@ -60,18 +68,25 @@
                             <i class="glyphicon glyphicon-star-empty"></i>                    
                         </div>
                         <div class="col-md-6 text-right small">
-                            1.983 Visualizações
+                            <?php echo $exposicao->get_visualizacoes(); ?> Visualizações
                         </div>
                     </div>
                 </div>
                 <div class="panel-footer text-center">
-                    <a href="" class="btn btn-primary">ABRIR EXPOSIÇÃO</a>
+                    <a href="<?php echo $this->url(array(
+                        'controller' => 'exposicao',
+                        'action' => 'open',
+                        'exposicao' => $exposicao->exposicao_id
+                    ), null, true); ?>" class="btn btn-primary">ABRIR EXPOSIÇÃO</a>
                 </div>
             </div>
         </div>   
-        
+        <?php endforeach; ?>
     </div>    
+    <?php endif; ?>
 </section>
+
+<!--
 <section>
     <div class="row">
         <div class="col-md-12">
@@ -80,3 +95,4 @@
         </div>
     </div>
 </section>
+-->

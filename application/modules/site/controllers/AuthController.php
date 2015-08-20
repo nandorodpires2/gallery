@@ -7,18 +7,18 @@
  */
 
 /**
- * Description of Add
+ * Description of AuthController
  *
- * @author Fernando
+ * @author Fernando Rodrigues
  */
-class Form_Admin_PlayerAtribute_Add extends Zend_Form {
+class Site_AuthController extends Gallery_Controller_Action {
     
     public function init() {
         parent::init();
-        
-        // submit
-        $this->addElement(Form_Submit::addSubmit());
-        
     }
+    
+    public function indexAction() {
+        
+    }            
     
 }
