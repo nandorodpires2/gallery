@@ -15,6 +15,12 @@ class Site_ExposicaoController extends Gallery_Controller_Action {
     
     public function init() {
         
+        $this->view->headScript()->appendFile($this->view->baseUrl('/views/js/jquery.blockUI.js'));
+        $this->view->headScript()->appendFile($this->view->baseUrl('/views/js/jquery-ui.js'));
+        //$this->view->headScript()->appendFile($this->view->baseUrl('/javascripts/jquery.maskedinput.js'));
+        $this->view->headScript()->appendFile($this->view->baseUrl('views/js/site/exposicao/add.js'));
+        $this->view->headScript()->appendFile($this->view->baseUrl('/javascripts/jquery.fittext/jquery.fittext.js'));
+        
     }
     
     public function indexAction() {
@@ -27,15 +33,45 @@ class Site_ExposicaoController extends Gallery_Controller_Action {
             //$this->_redirect("auth/");
         }
         
+        $crop_width = Zend_Registry::get("config")->images->exposicao->capa->crop->width;
+        $crop_height = Zend_Registry::get("config")->images->exposicao->capa->crop->height;
+        
         $form = new Form_Exposicao_Add();
+        
+        /* hidden */
+        $form->addElement('hidden', 'x', array(
+            'decorators'=>array(
+                'ViewHelper',
+                array('HtmlTag', array('tag' => 'span')),
+            )
+        ));
+        
+        $form->addElement('hidden', 'y', array(
+            'decorators'=>array(
+            'ViewHelper',
+            array('HtmlTag', array('tag' => 'span')),
+            )
+        ));
+
+        $form->addElement('hidden', 'scale', array(
+            'decorators'=>array(
+                'ViewHelper',
+                array('HtmlTag', array('tag' => 'span')),
+            )
+        ));        
+        
         $form->submit->setLabel("Cadastrar Exposição");
         $form->exposicao_capa->setAttrib('class', '');
         $this->view->form = $form;
         
-        if ($this->getRequest()->isPost()) {
-            if ($form->isValid($this->getRequest()->getPost())) {
-                $post = $form->getValues();
+        if ($this->getRequest()->isPost()) {            
+            $dadosForm = $this->getRequest()->getPost();            
+            if ($form->isValid($this->getRequest()->getPost())) {                
               
+                $this->upload($dadosForm['exposicao_capa_pre'], $dadosForm['x'], $dadosForm['y'], $dadosForm['scale'], $crop_width, $crop_height);
+                
+                $post = $form->getValues();
+                
                 /** @todo retirar este trecho quando ja estiver autenticando **/
                 $post['usuario_id'] = 1;
                 
@@ -54,6 +90,16 @@ class Site_ExposicaoController extends Gallery_Controller_Action {
                 
             }
         }
+        
+        $this->view->headLink()->appendStylesheet('/views/css/jquery.guillotine/jquery.guillotine.css');
+        $this->view->headLink()->appendStylesheet('/views/css/jquery.fileupload/jquery.fileupload.css');
+        $this->view->headLink()->appendStylesheet('/views/css/figurinha-editor.css');
+
+        $this->view->headScript()->appendFile($this->view->baseUrl('/views/js/jquery.fileupload/vendor/jquery.ui.widget.js'));
+        $this->view->headScript()->appendFile($this->view->baseUrl('/views/js/jquery.fileupload/jquery.iframe-transport.js'));
+        $this->view->headScript()->appendFile($this->view->baseUrl('/views/js/jquery.fileupload/jquery.fileupload.js'));
+        $this->view->headScript()->appendFile($this->view->baseUrl('/views/js/jquery.guillotine/jquery.guillotine.js'));
+        
         
     }
     
@@ -102,5 +148,49 @@ class Site_ExposicaoController extends Gallery_Controller_Action {
         }        
         
     }
+    
+    private function upload($arquivo, $x, $y, $scale, $w = 600, $h = 450) { 
+        $fonte = Zend_Registry::get('config')->path->images->exposicao->capa->temp . $arquivo;
+        $saida = Zend_Registry::get('config')->path->images->exposicao->capa . $arquivo;
+
+        $options = array("resizeUp" => true, "jpegQuality" => 100);
+        $thumb = PhpThumb_PhpThumbFactory::create($fonte, $options);
+        $dimensions = $thumb->getCurrentDimensions();
+        $cw = $dimensions["width"];
+        $ch = $dimensions["height"];
+        $fw = $scale * $cw;
+        $fh = $scale * $ch;
+        
+        $thumb->resize($fw, $fh);
+        $thumb->crop($x, $y, $w, $h);
+        $thumb->save($saida);
+    }
+    
+    /**
+     * upload 
+     */
+    public function uploadCapaTempAction() {
+        
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        
+        //Zend_Debug::dump(); die();
+        
+        $patharquivo = Zend_Registry::get('config')->path->images->exposicao->temp;
+        
+        try { 
+            $upload = new Plugin_UploadHash("files", $patharquivo);
+            if ($upload->upload()) {                
+                echo json_encode(array("arquivo" => $upload->filehash));
+                exit;
+            } else {
+                echo json_encode(array("error" => "Arquivo invalido!"));
+            }
+        } catch (Exception $e) {
+            echo json_encode(array("error" => $e->getMessage()));
+        }
+        
+    }
+    
     
 }
