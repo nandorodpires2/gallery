@@ -18,8 +18,7 @@ class Site_ExposicaoController extends Gallery_Controller_Action {
         $this->view->headScript()->appendFile($this->view->baseUrl('/views/js/jquery.blockUI.js'));
         $this->view->headScript()->appendFile($this->view->baseUrl('/views/js/jquery-ui.js'));
         //$this->view->headScript()->appendFile($this->view->baseUrl('/javascripts/jquery.maskedinput.js'));
-        $this->view->headScript()->appendFile($this->view->baseUrl('views/js/site/exposicao/add.js'));
-        $this->view->headScript()->appendFile($this->view->baseUrl('/javascripts/jquery.fittext/jquery.fittext.js'));
+        $this->view->headScript()->appendFile($this->view->baseUrl('views/js/site/exposicao/add.js'));        
         
     }
     
@@ -39,6 +38,13 @@ class Site_ExposicaoController extends Gallery_Controller_Action {
         $form = new Form_Exposicao_Add();
         
         /* hidden */
+        $form->addElement('hidden', 'exposicao_capa_temp', array(
+            'id' => 'exposicao_capa_temp',
+            'decorators'=>array(
+                'ViewHelper',
+                array('HtmlTag', array('tag' => 'span')),
+            )
+        ));
         $form->addElement('hidden', 'x', array(
             'decorators'=>array(
                 'ViewHelper',
@@ -60,8 +66,7 @@ class Site_ExposicaoController extends Gallery_Controller_Action {
             )
         ));        
         
-        $form->submit->setLabel("Cadastrar Exposição");
-        $form->exposicao_capa->setAttrib('class', '');
+        $form->submit->setLabel("Cadastrar Exposição");        
         $this->view->form = $form;
         
         if ($this->getRequest()->isPost()) {            
@@ -93,7 +98,7 @@ class Site_ExposicaoController extends Gallery_Controller_Action {
         
         $this->view->headLink()->appendStylesheet('/views/css/jquery.guillotine/jquery.guillotine.css');
         $this->view->headLink()->appendStylesheet('/views/css/jquery.fileupload/jquery.fileupload.css');
-        $this->view->headLink()->appendStylesheet('/views/css/figurinha-editor.css');
+        $this->view->headLink()->appendStylesheet('/views/css/exposicao/exposicao.css');
 
         $this->view->headScript()->appendFile($this->view->baseUrl('/views/js/jquery.fileupload/vendor/jquery.ui.widget.js'));
         $this->view->headScript()->appendFile($this->view->baseUrl('/views/js/jquery.fileupload/jquery.iframe-transport.js'));
@@ -149,7 +154,7 @@ class Site_ExposicaoController extends Gallery_Controller_Action {
         
     }
     
-    private function upload($arquivo, $x, $y, $scale, $w = 600, $h = 450) { 
+    private function upload($arquivo, $x, $y, $scale, $w = 300, $h = 170) { 
         $fonte = Zend_Registry::get('config')->path->images->exposicao->capa->temp . $arquivo;
         $saida = Zend_Registry::get('config')->path->images->exposicao->capa . $arquivo;
 
@@ -184,7 +189,7 @@ class Site_ExposicaoController extends Gallery_Controller_Action {
                 echo json_encode(array("arquivo" => $upload->filehash));
                 exit;
             } else {
-                echo json_encode(array("error" => "Arquivo invalido!"));
+                echo json_encode(array("error" => $upload->filename));
             }
         } catch (Exception $e) {
             echo json_encode(array("error" => $e->getMessage()));

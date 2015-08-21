@@ -30,11 +30,10 @@ $(document).ready(function(){
     
     'use strict'; 
     
-    jQuery('#exposicao_capa').fileupload({ 
+    jQuery('#exposicao_capa').fileupload({         
         url: urluploadfoto, 
         dataType: 'json', 
-        done: function (e, data) {
-            alert(data.result.arquivo);
+        done: function (e, data) {            
             setUploadedImageOnEditor(data.result.arquivo, true, false);            
             console.log(data.result);
         },
@@ -42,26 +41,7 @@ $(document).ready(function(){
             var progress = parseInt(data.loaded / data.total * 100, 10);
             jQuery('#progress .progress-bar').css('width', progress + '%');
         }
-    });
-
-    /*
-    jQuery('#fileupload-update').fileupload({ 
-        url: urluploadfoto,
-        dataType: 'json', 
-        done: function (e, data) { 
-            setUploadedImageOnEditor(data.result.arquivo, true, false);            
-            jQuery('#progress-update-container').html("");
-            console.log(data.result);
-        },
-        progressall: function (e, data) { 
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress-update-container').html(progress + '%');
-        } 
-    }); 
-    */
-   
-    //jQuery("#editor-nome").fitText(1.5);
-    
+    });    
     
 });
 
@@ -75,8 +55,8 @@ function setUploadedImageOnEditor(arquivo, fit, config) {
 
     jQuery("#exposicao_capa_view .frame img").eq(0).one("load", function() { 
 
-        //jQuery("#figurinha-editor").css("display", "block"); 
-        //jQuery("#figurinha-upload").css("display", "none"); 
+        jQuery("#exposicao-capa-view").css("display", "block"); 
+        jQuery("#exposicao-capa-pre-view").css("display", "none"); 
 
     }).each(function() {
         if(this.complete) {
@@ -85,8 +65,7 @@ function setUploadedImageOnEditor(arquivo, fit, config) {
     });
 
     // salva o nome do arquivo no campo hidden
-    jQuery("#exposicao_capa").val(arquivo);
-
+    jQuery("#exposicao_capa_temp").val(arquivo);
     console.log(config);
 
     jQuery("#" + id).load(function () { 
